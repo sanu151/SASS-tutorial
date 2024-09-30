@@ -119,6 +119,115 @@ By following these steps, you should be able to successfully set up SASS in VS C
             @include clearfix;
         }
         ```
+
+In SASS (Syntactically Awesome Stylesheets), `@forward`, `@use`, and partials are features used to organize and modularize stylesheets.
+
+### 1. **Partials in SASS**
+A **partial** is a small SASS file that contains CSS snippets (variables, mixins, functions, etc.) and is meant to be included in other SASS files. Partials are named with a leading underscore (`_`), indicating they should not be compiled into a standalone CSS file. Instead, they are imported into other SASS files.
+
+For example:
+```scss
+// _colors.scss
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+```
+
+```scss
+// styles.scss
+@use 'colors';
+
+body {
+  background-color: colors.$primary-color;
+}
+```
+
+### 2. **`@use` in SASS**
+The `@use` rule loads another SASS file and makes its variables, mixins, and functions available in the current file. However, when using `@use`, the loaded file's contents are namespaced by default, meaning you have to reference the file name (or alias) when using the variables, mixins, etc.
+
+For example:
+```scss
+// _variables.scss
+$font-size: 16px;
+
+// main.scss
+@use 'variables';
+
+body {
+  font-size: variables.$font-size;
+}
+```
+
+You can also alias a module loaded via `@use`:
+```scss
+@use 'variables' as vars;
+
+body {
+  font-size: vars.$font-size;
+}
+```
+
+### 3. **`@forward` in SASS**
+The `@forward` rule is used to share a stylesheet's variables, mixins, and functions with other stylesheets. It differs from `@use` in that it is typically used inside a module that wants to re-export its contents. This allows for better modularity and control over which parts of a file get forwarded to other files.
+
+For example:
+```scss
+// _mixins.scss
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// _index.scss
+@forward 'mixins';
+
+// main.scss
+@use 'index';
+
+.container {
+  @include index.flex-center;
+}
+```
+
+The `@forward` rule can be used along with `@use` to re-export and bundle different partials together.
+
+---
+
+### Practical Example Combining Everything:
+```scss
+// _variables.scss
+$primary-color: #ff6347;
+
+// _mixins.scss
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// _index.scss
+@forward 'variables';
+@forward 'mixins';
+
+// main.scss
+@use 'index';
+
+body {
+  background-color: index.$primary-color;
+}
+
+.container {
+  @include index.center;
+}
+```
+
+In this setup:
+- `@forward` allows `index.scss` to bundle and re-export both `_variables.scss` and `_mixins.scss`.
+- `@use` in `main.scss` imports the `index` namespace, enabling access to variables and mixins without importing each partial individually.
+
+Let me know if you need more details on any of these!
+
+
 * **Functions:**
     - Create custom functions using `@function`.
     - Use functions within your stylesheet.
