@@ -225,22 +225,6 @@ In this setup:
 - `@forward` allows `index.scss` to bundle and re-export both `_variables.scss` and `_mixins.scss`.
 - `@use` in `main.scss` imports the `index` namespace, enabling access to variables and mixins without importing each partial individually.
 
-Let me know if you need more details on any of these!
-
-
-* **Functions:**
-    - Create custom functions using `@function`.
-    - Use functions within your stylesheet.
-    - Example:
-        ```scss
-        @function lighten($color, $amount) {
-            @return mix($color, white, $amount);
-        }
-
-        .button {
-            background-color: lighten($primary-color, 20%);
-        }
-        ```
 
 **Compiling SASS to CSS**
 
