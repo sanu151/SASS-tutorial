@@ -1,0 +1,59 @@
+// Reset Code
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// Declering Variables
+
+$header-bg: brown;
+$main-bg: orange;
+$footer-bg: pink;
+$header-text: white;
+
+$para-font: 18px;
+
+// Body codes
+header {
+  background: $header-bg;
+  color: $header-text;
+  padding: 1rem;
+  h1 {
+    padding: 0 1rem;
+  }
+  nav {
+    margin-top: 1rem;
+    ul {
+      list-style-type: none;
+      li {
+        display: inline-block;
+        a {
+          text-decoration: none;
+          padding: 1rem;
+          color: $header-text;
+          border-radius: 0.5rem;
+          transition: 0.4s;
+        }
+        a:hover {
+          background-color: #000;
+        }
+      }
+    }
+  }
+}
+main {
+  background: $main-bg;
+  padding: 1rem;
+  h2 {
+    margin-bottom: 0.6rem;
+  }
+  p {
+    font-size: $para-font;
+  }
+}
+footer {
+  background: $footer-bg;
+  padding: 1rem;
+  font-size: $para-font;
+}
