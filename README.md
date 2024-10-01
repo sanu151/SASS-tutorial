@@ -226,6 +226,266 @@ In this setup:
 - `@use` in `main.scss` imports the `index` namespace, enabling access to variables and mixins without importing each partial individually.
 
 
+### `@mixin` and `@include` in SASS:
+
+**`@mixin`:**
+
+- **Purpose:** Defines a reusable block of CSS styles that can be included multiple times in different places within your SASS code.
+- **Structure:**
+  - Begins with the `@mixin` directive followed by the mixin's name.
+  - Contains the CSS rules you want to define.
+  - May accept parameters to make the mixin more flexible.
+- **Example:**
+  ```scss
+  @mixin button($background-color, $color) {
+    background-color: $background-color;
+    color: $color;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  ```
+
+**`@include`:**
+
+- **Purpose:** Includes a previously defined mixin within a CSS rule.
+- **Usage:**
+  - Begins with the `@include` directive followed by the mixin's name.
+  - May pass arguments to the mixin if it accepts parameters.
+- **Example:**
+  ```scss
+  .primary-button {
+    @include button(#007bff, white);
+  }
+
+  .secondary-button {
+    @include button(#6c757d, black);
+  }
+  ```
+
+**Key Differences:**
+
+- **`@mixin`:** Defines a reusable block of CSS styles.
+- **`@include`:** Includes a previously defined mixin within a CSS rule.
+
+**Key Benefits:**
+
+- **Code Reusability:** Avoids repeating the same CSS rules multiple times.
+- **Organization:** Enhances code organization and maintainability.
+- **Customization:** Allows for easy customization of styles through parameters.
+- **Efficiency:** Reduces the amount of code you need to write.
+
+**Best Practices:**
+
+- Use meaningful names for your mixins to improve readability.
+- Consider using parameters to make your mixins more flexible.
+- Avoid nesting mixins too deeply to prevent complexity.
+- Use mixins to encapsulate complex style patterns or components.
+
+**Example Usage:**
+
+```scss
+// Mixin to define a button style
+@mixin button($background-color, $color) {
+  background-color: $background-color;
+  color: $color;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+// Mixin to define a border style
+@mixin border($width, $style, $color) {
+  border: $width $style $color;
+}
+
+// Using the mixins to style elements
+.primary-button {
+  @include button(#007bff, white);
+  @include border(2px, solid, #ccc);
+}
+
+.secondary-button {
+  @include button(#6c757d, black);
+  @include border(1px, dashed, #999);
+}
+```
+
+By effectively using `@mixin` and `@include`, you can write cleaner, more maintainable, and more efficient SASS code.
+
+
+### @extend and inheritance in SASS:
+
+**Extend:**
+
+- **Purpose:** Allows you to create new selectors that inherit the styles of existing selectors without explicitly copying the CSS rules.
+- **Syntax:**
+  - `%selector-name {}`: Defines a placeholder selector.
+  - `%selector-name: extend %other-selector;`: Extends the styles of `%other-selector` into `%selector-name`.
+- **Example:**
+  ```scss
+  %button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .primary-button {
+    @extend %button;
+    background-color: #007bff;
+    color: white;
+  }
+
+  .secondary-button {
+    @extend %button;
+    background-color: #6c757d;
+    color: black;
+  }
+  ```
+
+**Inheritance:**
+
+- **Purpose:** In SASS, inheritance is achieved through the `@extend` directive. It allows you to create new selectors that inherit the styles of existing selectors.
+- **How it works:**
+  - The `@extend` directive is used to specify the selector that you want to inherit from.
+  - The styles of the inherited selector are merged with the styles of the new selector.
+  - If there are conflicting styles, the styles of the new selector take precedence.
+
+**Key Differences:**
+
+- **Extend:** Specifically designed for creating new selectors that inherit styles from existing selectors.
+- **Inheritance:** A broader concept that encompasses the idea of one selector inheriting styles from another. In SASS, inheritance is implemented using the `@extend` directive.
+
+**Best Practices:**
+
+- Use `@extend` judiciously to avoid creating overly complex and difficult-to-maintain stylesheets.
+- Consider using mixins for more complex style patterns that require customization.
+- Use meaningful names for your placeholder selectors to improve readability.
+- Avoid extending selectors that are deeply nested or have many child selectors.
+
+**Example Usage:**
+
+```scss
+// Base selector
+%base-button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+// Extended selectors
+.primary-button {
+  @extend %base-button;
+  background-color: #007bff;
+  color: white;
+}
+
+.secondary-button {
+  @extend %base-button;
+  background-color: #6c757d;
+  color: black;
+}
+
+// Nested selector
+.button-group {
+  .button {
+    @extend %base-button;
+    margin-right: 10px;
+  }
+}
+```
+
+By effectively using `@extend` and understanding the concept of inheritance, you can create well-structured, maintainable, and reusable SASS stylesheets.
+
+
+### `@if`, `@else if`, and `@else`:
+
+**`@if`:**
+
+- **Purpose:** Executes a block of CSS code if a specified condition is true.
+- **Syntax:**
+  - `@if <condition> {
+      <CSS rules>
+    }`
+- **Example:**
+  ```scss
+  $is-dark-mode: true;
+
+  body {
+    @if $is-dark-mode {
+      background-color: black;
+      color: white;
+    } @else {
+      background-color: white;
+      color: black;
+    }
+  }
+  ```
+
+**`@else if`:**
+
+- **Purpose:** Provides an additional condition to check if the previous `@if` condition is false.
+- **Syntax:**
+  - `@else if <condition> {
+      <CSS rules>
+    }`
+- **Example:**
+  ```scss
+  $theme: "light";
+
+  body {
+    @if $theme == "dark" {
+      background-color: black;
+      color: white;
+    } @else if $theme == "light" {
+      background-color: white;
+      color: black;
+    } @else {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+  }
+  ```
+
+**`@else`:**
+
+- **Purpose:** Executes a block of CSS code if none of the previous `@if` or `@else if` conditions are true.
+- **Syntax:**
+  - `@else {
+      <CSS rules>
+    }`
+- **Example:**
+  ```scss
+  $browser: "Chrome";
+
+  body {
+    @if $browser == "Firefox" {
+      /* Firefox-specific styles */
+    } @else if $browser == "Safari" {
+      /* Safari-specific styles */
+    } @else {
+      /* Default styles */
+    }
+  }
+  ```
+
+**Key Points:**
+
+- Conditions in SASS are evaluated using Boolean logic.
+- You can use comparison operators (`==`, `!=`, `<`, `>`, `<=`, `>=`) and logical operators (`and`, `or`, `not`) to create complex conditions.
+- Nested `@if` statements are supported.
+- The `@else` block is optional but can be useful for providing a default case.
+
+**Best Practices:**
+
+- Use clear and concise conditions to improve readability.
+- Consider using variables to store values that may change.
+- Test your code thoroughly to ensure it works as expected under different conditions.
+
+By effectively using `@if`, `@else if`, and `@else`, you can create dynamic and responsive SASS stylesheets that adapt to different scenarios and user preferences.
+
+
+
 **Compiling SASS to CSS**
 
 * **Use your SASS compiler:**
