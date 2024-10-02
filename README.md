@@ -512,11 +512,11 @@ By effectively using `@if`, `@else if`, and `@else`, you can create dynamic and 
   
 ```scss
   @for $i from 1 to 5 {
-  .item-#{$i} {
-    width: 20px * $i;
-    height: 20px * $i;
-  }
-}
+      .item-#{$i} {
+        width: 20px * $i;
+        height: 20px * $i;
+      }
+    }
 ```
 
 **@while Loop:**
