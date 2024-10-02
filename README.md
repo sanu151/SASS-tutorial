@@ -518,14 +518,16 @@ By effectively using `@if`, `@else if`, and `@else`, you can create dynamic and 
 }
 ```
 
-**`@while` Loop:**
+**@while Loop:**
 
-- **Purpose:** Executes a block of code as long as a specified condition is true.
-- **Syntax:**
-  - `@while <condition> {
+**Purpose:** Executes a block of code as long as a specified condition is true.
+**Syntax:**
+```
+  @while <condition> {
       <CSS rules>
-    }`
-- **Example:**
+    }
+```
+**Example:**
   ```scss
   $i: 1;
   @while $i <= 5 {
