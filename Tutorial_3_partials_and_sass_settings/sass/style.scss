@@ -1,6 +1,20 @@
 @forward "./base/index";
 @use "./util/index" as util;
 
+$colors: (
+  color1: red,
+  color2: green,
+  color3: yellow,
+  color4: blue,
+  color5: tomato,
+);
+
+@each $key, $color in $colors {
+  .#{$color}-text {
+    color: $color;
+  }
+}
+
 @mixin section-style($color, $style) {
   background: $color;
   text-align: $style;
@@ -83,7 +97,7 @@ main {
 
 @for $i from 1 through 12 {
   .col-#{$i} {
-    width: 100% / 12 * $i;
+    width: calc((100% * $i) / 12);
   }
 }
 
