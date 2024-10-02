@@ -578,6 +578,85 @@ $seconds: 10;
 
 By effectively using `@for` and `@while` loops, you can create dynamic and flexible SASS stylesheets that adapt to different scenarios and requirements.
 
+##  `@each` to map over items in SASS:
+
+**`@each` directive:**
+
+- **Purpose:** Iterates over a list or map, executing a block of code for each item.
+- **Syntax:**
+  ```scss
+  @each $item in <list> {
+    <CSS rules>
+  }
+
+  @each $key, $value in <map> {
+    <CSS rules>
+  }
+  ```
+- **Example:**
+  ```scss
+  $colors: (
+    primary: #007bff,
+    secondary: #6c757d,
+    success: #28a745
+  );
+
+  @each $color-name, $color-value in $colors {
+    .#{$color-name}-button {
+      background-color: $color-value;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+  }
+  ```
+
+**Key points:**
+
+- The `$item` variable in the `@each` loop holds the current item being iterated over.
+- For maps, the `$key` variable holds the key of the current item, and the `$value` variable holds the value.
+- You can use interpolation (`#{$variable}`) to insert the value of a variable into CSS rules.
+
+**Best practices:**
+
+- Use meaningful variable names to improve readability.
+- Indent your code consistently for better organization.
+- Consider using nested `@each` loops to iterate over multiple levels of data.
+
+**Example usage:**
+
+```scss
+$colors: (
+  primary: #007bff,
+  secondary: #6c757d,
+  success: #28a745
+);
+
+$sizes: (
+  small: 12px,
+  medium: 14px,
+  large: 16px
+);
+
+@each $color-name, $color-value in $colors {
+  @each $size-name, $size-value in $sizes {
+    .#{$color-name}-button-#{$size-name} {
+      background-color: $color-value;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: $size-value;
+    }
+  }
+}
+```
+
+This example demonstrates how to use nested `@each` loops to create a grid of buttons with different colors and sizes.
+
+By effectively using the `@each` directive, you can generate dynamic and reusable CSS styles based on lists and maps of data.
+
 
 **Compiling SASS to CSS**
 
