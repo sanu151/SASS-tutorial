@@ -1,0 +1,106 @@
+@forward "./base/index";
+@use "./util/index" as util;
+
+@mixin section-style($color, $style) {
+  background: $color;
+  text-align: $style;
+  padding: 1rem 2rem;
+}
+@mixin heaing-tag($color, $decoration) {
+  color: $color;
+  text-decoration: $decoration;
+}
+
+@mixin fontSize($value) {
+  @if $value == sm {
+    font-size: 12px;
+  } @else if $value == md {
+    font-size: 18px;
+  } @else if $value == lg {
+    font-size: 22px;
+  } @else {
+    font-size: 16px;
+  }
+}
+
+header {
+  background: util.$header-bg;
+  nav {
+    background: util.$nav-bg;
+    ul {
+      display: flex;
+      gap: 1rem;
+      li {
+        list-style-type: none;
+        padding: 1rem 0;
+        a {
+          padding: 1rem;
+          margin-right: 1rem;
+          border-radius: 0.8rem;
+          transition: 0.4s;
+        }
+        a:hover {
+          background-color: black;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+main {
+  #about {
+    @include section-style(blue, justify);
+    h3 {
+      @include heaing-tag(white, underline);
+    }
+    p {
+      @include fontSize(sm);
+    }
+    .download-btn {
+      @extend .btn;
+      background-color: green;
+    }
+    .learn-more-btn {
+      @extend .btn;
+      background-color: burlywood;
+    }
+  }
+  #education {
+    @include section-style(brown, justify);
+    h3 {
+      @include heaing-tag(aqua, underline);
+    }
+    p {
+      @include fontSize(lg);
+    }
+  }
+}
+
+[class*="col-"] {
+  float: left;
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    width: 100% / 12 * $i;
+  }
+}
+
+[class*="c-"] {
+  float: left;
+}
+
+$x: 1;
+@while $x < 6 {
+  .c-#{$x} {
+    width: 5% * $x;
+    border: 2px solid blue;
+    text-align: center;
+  }
+  $x: $x + 1;
+}
+
+.row::after {
+  clear: both;
+}
